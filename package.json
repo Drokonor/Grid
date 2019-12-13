@@ -4,7 +4,7 @@
   "description": "Для зачета по гриду",
   "main": "app.js",
   "scripts": {
-    "start" : "node app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Drokonor/Grid/issues"
   },
-  "homepage": "https://github.com/Drokonor/Grid#readme"
+  "homepage": "https://github.com/Drokonor/Grid#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1"
+  }
 }
