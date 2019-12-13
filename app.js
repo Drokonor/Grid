@@ -2,6 +2,7 @@ const express = require('express')
 const passport = require('./passport')
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+const ansible = require('./ansible')
 const app = express()
 
 app.set("view engine", "ejs")
@@ -53,12 +54,12 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/create', function(req,res) {
-    console.log('created')
+    ansible.create()
     res.redirect('/')
 })
 
 app.post('/remove', function(req,res) {
-    console.log('remove')
+    ansible.remove()
     res.redirect('/')
 })
 
