@@ -1,0 +1,19 @@
+{
+  "name": "grid",
+  "version": "1.0.0",
+  "description": "Для зачета по гриду",
+  "main": "app.js",
+  "scripts": {
+    "start" : "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Drokonor/Grid.git"
+  },
+  "author": "Drokonor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Drokonor/Grid/issues"
+  },
+  "homepage": "https://github.com/Drokonor/Grid#readme"
+}
