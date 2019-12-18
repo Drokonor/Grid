@@ -11,13 +11,15 @@
     </form>  
     <br/>
     <br/>
-    <form method="POST" action="/create">
-        <button type="submit">Создать виртуалку</button>
+    <form method="POST" action="/button">
+      <label><b>Вставте текст для подсчета символов:</b></label>
+      <br/>
+      <p><textarea rows="10" cols="45" name="text" required></textarea></p>
+      <button type="submit">Посчитать количество символов</button>
     </form>
     <br/>
     <br/>
-    <form method="POST" action="/remove">
-        <button type="submit">Удалить виртуалку</button>
-    </form>
+    <br/>
+    <%=user.text%> : <%=user.lenght%>
   </body>
 </html>

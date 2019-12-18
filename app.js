@@ -29,8 +29,17 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', function(req,res){
-    res.render('index')
+const auth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next()
+  }
+  else {
+    return res.redirect('/login')
+  }
+}
+
+app.get('/',auth, async function(req,res){
+  res.render('index', {user : await User.findOne({vkontakteId : req.user.vkontakteId})})
 })
 
 app.get('/login', function(req,res){
@@ -48,21 +57,15 @@ app.get('/auth/vkontakte/callback',
     res.redirect('/');
 });
 
-app.get('/logout', (req, res) => {
+app.get('/logout',auth, (req, res) => {
     req.logOut();
     res.redirect('/login');
 });
 
-app.post('/create', function(req,res) {
-    ansible.create()
-    res.redirect('/')
+app.post('/button',auth, async (req,res)=>{
+  await User.findOneAndUpdate({vkontakteId: req.user.vkontakteId},{text : req.body.text})
+  res.redirect('/')
 })
-
-app.post('/remove', function(req,res) {
-    ansible.remove()
-    res.redirect('/')
-})
-
 
 app.listen(8080, function(){
     console.log('Сервер запущен на порте 8080')

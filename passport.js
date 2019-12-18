@@ -11,7 +11,7 @@ passport.use(new VKontakteStrategy({
     User.findOne({ vkontakteId: profile.id }, function(err, user) {
       if (err) { return done(err); }
       if (!user) {
-        let user = User.create({vkontakteId : profile.id})
+        let user = User.create({vkontakteId : profile.id, text:"",lenght:0})
       } 
       return done(null, user);
     })
