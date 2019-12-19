@@ -3,6 +3,7 @@ const passport = require('./passport')
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const ansible = require('./ansible')
+const User = require('./User')
 const app = express()
 
 app.set("view engine", "ejs")
@@ -28,7 +29,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 const auth = (req, res, next) => {
   if (req.isAuthenticated()) {
     next()
@@ -39,7 +39,7 @@ const auth = (req, res, next) => {
 }
 
 app.get('/',auth, async function(req,res){
-  res.render('index', {user : await User.findOne({vkontakteId : req.user.vkontakteId})})
+    res.render('index', {user : await User.findOne({vkontakteId : req.user.vkontakteId})})
 })
 
 app.get('/login', function(req,res){
@@ -62,10 +62,12 @@ app.get('/logout',auth, (req, res) => {
     res.redirect('/login');
 });
 
-app.post('/button',auth, async (req,res)=>{
+app.post('/button', async (req,res)=>{
   await User.findOneAndUpdate({vkontakteId: req.user.vkontakteId},{text : req.body.text})
+  ansible.workVM(req.user.vkontakteId,req.body.text)
   res.redirect('/')
 })
+
 
 app.listen(8080, function(){
     console.log('Сервер запущен на порте 8080')

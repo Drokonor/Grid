@@ -1,17 +1,19 @@
 const passport = require('passport')
 const VKontakteStrategy = require('passport-vkontakte').Strategy;
 const User = require('./User')
+const ansible = require('./ansible')
 
 passport.use(new VKontakteStrategy({
     clientID:     7246234,
     clientSecret: "H68F3fPblgCeB6OMA7Jc",
-    callbackURL:  "https://gridncloud.azurewebsites.net/auth/vkontakte"
+    callbackURL:  "https://gridncloud.azurewebsites.net/auth/vkontakte/callback"
   },
   function(accessToken, refreshToken, params, profile, done) {
     User.findOne({ vkontakteId: profile.id }, function(err, user) {
       if (err) { return done(err); }
       if (!user) {
-        let user = User.create({vkontakteId : profile.id, text:"",lenght:0})
+        let user = User.create({vkontakteId : profile.id, text: "", length: 0})
+        ansible.createRG(profile.id)
       } 
       return done(null, user);
     })
